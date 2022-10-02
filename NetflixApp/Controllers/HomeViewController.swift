@@ -9,7 +9,7 @@ import UIKit
 //import SwiftUI
 import EasyPeasy
 
-class HomeViewController: UIViewController {
+public final class HomeViewController: UIViewController {
     
     let sectionTitles: [String] = ["Trending Moviews","Popular", "Trending Tv", "Upcoming Movies", "Top Rated"]
     
@@ -36,16 +36,16 @@ class HomeViewController: UIViewController {
     
     //MARK: - View LifeCycle
     
-    override func viewWillAppear(_ animated: Bool) {
+    public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
     
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
         configureNavBar()
         setupLayout()
     }
-    override func viewDidLayoutSubviews() {
+    public override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         homeTableView.frame = view.bounds
     }
@@ -64,15 +64,15 @@ class HomeViewController: UIViewController {
 //MARK: - TableView
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
     
-    func numberOfSections(in tableView: UITableView) -> Int {
+    public func numberOfSections(in tableView: UITableView) -> Int {
         return sectionTitles.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HomeCollectionTableViewCell.identifier, for: indexPath) as? HomeCollectionTableViewCell else {
             return UITableViewCell()
         }
@@ -83,7 +83,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
 //            return sectionTitles[section]
 //        }
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let returnedView = UIView(frame: .zero)
         let label = UILabel()
         label.text = sectionTitles[section]
@@ -100,11 +100,11 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     //        header.font = .systemFont(ofSize: <#T##CGFloat#>)
     //    }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 200
     }
     
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 40
     }
     

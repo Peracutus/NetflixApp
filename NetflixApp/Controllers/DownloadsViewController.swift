@@ -7,9 +7,9 @@
 
 import UIKit
 
-class DownloadsViewController: UIViewController {
+public final class DownloadsViewController: UIViewController {
 
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBlue
     }

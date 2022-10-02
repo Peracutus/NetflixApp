@@ -7,9 +7,9 @@
 
 import UIKit
 
-class UpcomingViewController: UIViewController {
+public final class UpcomingViewController: UIViewController {
 
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .yellow
     }

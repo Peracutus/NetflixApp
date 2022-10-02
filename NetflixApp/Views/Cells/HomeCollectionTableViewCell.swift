@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HomeCollectionTableViewCell: UITableViewCell {
+public final class HomeCollectionTableViewCell: UITableViewCell {
     
     static let identifier = "HomeCollectionCell"
     
@@ -39,7 +39,7 @@ class HomeCollectionTableViewCell: UITableViewCell {
       // collectionView.contentInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
     }
     
-    override func layoutSubviews() {
+    public override func layoutSubviews() {
         super.layoutSubviews()
         collectionView.frame = contentView.bounds
     }
@@ -52,11 +52,11 @@ class HomeCollectionTableViewCell: UITableViewCell {
 //MARK: - extension collectionView
 extension HomeCollectionTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource {
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 99
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
         cell.backgroundColor = .black
         cell.tintColor = .red

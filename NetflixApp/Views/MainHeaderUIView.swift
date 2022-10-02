@@ -8,7 +8,7 @@
 import UIKit
 import EasyPeasy
 
-class MainHeaderUIView: UIView {
+public final class MainHeaderUIView: UIView {
     
     //MARK: - properties
     private let stackView: UIStackView = {
@@ -65,7 +65,7 @@ class MainHeaderUIView: UIView {
         
     }
     
-    override func layoutSubviews() {
+    public override func layoutSubviews() {
         super.layoutSubviews()
         generalImageView.frame = bounds
     }

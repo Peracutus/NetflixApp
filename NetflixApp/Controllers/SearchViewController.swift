@@ -7,9 +7,9 @@
 
 import UIKit
 
-class SearchViewController: UIViewController {
+public final class SearchViewController: UIViewController {
 
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .green
     }

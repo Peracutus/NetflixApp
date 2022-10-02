@@ -8,9 +8,9 @@
 import UIKit
 //import SwiftUI
 
-class MainTabBarViewController: UITabBarController {
+public final class MainTabBarViewController: UITabBarController {
 
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
         setupTabBar()
     }
@@ -31,7 +31,6 @@ class MainTabBarViewController: UITabBarController {
         let navController = UINavigationController(rootViewController: vc)
         navController.tabBarItem = item
         //navController.navigationBar.scrollEdgeAppearance = navController.navigationBar.standardAppearance
-        
         tabBar.tintColor = UIColor(named: "RedColor")
         return navController
     }
