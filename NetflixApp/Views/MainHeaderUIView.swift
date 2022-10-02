@@ -27,7 +27,6 @@ public final class MainHeaderUIView: UIView {
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.setTitle("Download", for: .normal)
         btn.layer.borderColor = UIColor.black.cgColor
-        //UIColor.systemBackground.cgColor
         btn.layer.borderWidth = 1
         btn.layer.cornerRadius = 5
         return btn
@@ -38,7 +37,6 @@ public final class MainHeaderUIView: UIView {
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.setTitle("Play", for: .normal)
         btn.layer.borderColor = UIColor.black.cgColor
-        //UIColor.systemBackground.cgColor
         btn.layer.borderWidth = 1
         btn.layer.cornerRadius = 5
         return btn
@@ -55,14 +53,11 @@ public final class MainHeaderUIView: UIView {
     override init(frame: CGRect) {
         super .init(frame: frame)
         addSubview(generalImageView)
-        
         addGradientLayer()
-        
         addSubview(stackView)
         stackView.addArrangedSubview(playButton)
         stackView.addArrangedSubview(downloadButton)
         stackView.easy.layout(Left(30), Bottom(50), Right(30))
-        
     }
     
     public override func layoutSubviews() {

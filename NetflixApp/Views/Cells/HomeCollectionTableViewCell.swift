@@ -36,7 +36,7 @@ public final class HomeCollectionTableViewCell: UITableViewCell {
     private func setupLayout() {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.allowsMultipleSelection = false
-      // collectionView.contentInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        collectionView.contentInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
     }
     
     public override func layoutSubviews() {

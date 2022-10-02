@@ -11,8 +11,7 @@ import EasyPeasy
 
 public final class HomeViewController: UIViewController {
     
-    let sectionTitles: [String] = ["Trending Moviews","Popular", "Trending Tv", "Upcoming Movies", "Top Rated"]
-    
+    private let sectionTitles: [String] = ["Trending Moviews","Popular", "Trending Tv", "Upcoming Movies", "Top Rated"]
     private let homeTableView: UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
         table.translatesAutoresizingMaskIntoConstraints = false
@@ -21,38 +20,53 @@ public final class HomeViewController: UIViewController {
         return table
     }()
     
-    private func configureNavBar() {
-        
-        let image = UIImage(named: "NetflixLogo")?.withRenderingMode(.alwaysOriginal)
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: self, action: nil) // this case is always centered image depicted
-        
-        
-        navigationItem.rightBarButtonItems = [
-            UIBarButtonItem(image: UIImage(systemName: "person"), style: .done, target: self, action: nil),
-            UIBarButtonItem(image: UIImage(systemName: "play.rectangle"), style: .done, target: self, action: nil)
-        ]
-        // navigationItem.leftBarButtonItem?
-    }
-    
     //MARK: - View LifeCycle
     
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
     
-    public override func viewDidLoad() {
-        super.viewDidLoad()
-        configureNavBar()
-        setupLayout()
-    }
     public override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         homeTableView.frame = view.bounds
     }
     
+    private func getMostPopularTVs() {
+        APICaller.shared.getTrendMovies { items in
+            switch items {
+            case .success(let movies):
+                print(movies)
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+    public override func viewDidLoad() {
+        super.viewDidLoad()
+        configureNavBar()
+        setupLayout()
+        
+        getMostPopularTVs()
+    }
+    
+    private func configureNavBar() {
+        let image = UIImage(named: "NetflixLogo")?.withRenderingMode(.alwaysOriginal)
+        let imageButton = UIButton(type: .custom)
+        imageButton.frame = CGRect(x: 0.0, y: 0.0, width: 20, height: 20)
+        imageButton.setImage(image, for: .normal)
+        imageButton.easy.layout(Size(35))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: imageButton)
+        
+        navigationItem.rightBarButtonItems = [
+            UIBarButtonItem(image: UIImage(systemName: "person"), style: .done, target: self, action: nil),
+            UIBarButtonItem(image: UIImage(systemName: "play.rectangle"), style: .done, target: self, action: nil)
+        ]
+        navigationController?.navigationBar.tintColor = .black
+    }
+    
     private func setupLayout() {
         view.addSubview(homeTableView)
-        
         homeTableView.delegate = self
         homeTableView.dataSource = self
         homeTableView.showsVerticalScrollIndicator = false
@@ -79,9 +93,9 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-//        func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//            return sectionTitles[section]
-//        }
+    //        func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    //            return sectionTitles[section]
+    //        }
     
     public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let returnedView = UIView(frame: .zero)
@@ -89,16 +103,10 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         label.text = sectionTitles[section]
         label.font = .systemFont(ofSize: 18, weight: .semibold)
         label.textColor = .black
-       // label.text = label.text?.uppercased()
         returnedView.addSubview(label)
         label.easy.layout(Edges(), Left(20))
         return returnedView
     }
-    
-    //    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-    //        guard let header = view as?  UIListContentConfiguration else { return }
-    //        header.font = .systemFont(ofSize: <#T##CGFloat#>)
-    //    }
     
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 200
@@ -106,6 +114,12 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 40
+    }
+
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) { ///makes to scrolling nav bar
+        let defaultOffset = view.safeAreaInsets.top
+        let offset = scrollView.contentOffset.y + defaultOffset
+        navigationController?.navigationBar.transform = .init(translationX: 0, y: min(0, -offset))
     }
     
     //    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
