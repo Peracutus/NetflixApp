@@ -6,21 +6,21 @@
 //
 
 import UIKit
-//import SwiftUI
 import EasyPeasy
 
 enum Sections: Int {
     case TrendingMoview = 0
     case TrendingTVs = 1
+    case Top250Movies = 2
+    case Top250TVs = 3
 }
 
 public final class HomeViewController: UIViewController {
     
-    private let sectionTitles: [String] = ["Trending Moviews","Popular", "Trending Tv", "Upcoming Movies", "Top Rated"]
+    private let sectionTitles: [String] = ["Trending Moviews","Trending TVs", "Top 250 Movies", "Top 250 TVs"]
     private let homeTableView: UITableView = {
         let table = UITableView(frame: .zero, style: .grouped)
         table.translatesAutoresizingMaskIntoConstraints = false
-        //table.bounces = false
         table.register(HomeCollectionTableViewCell.self, forCellReuseIdentifier: HomeCollectionTableViewCell.identifier)
         return table
     }()
@@ -36,23 +36,11 @@ public final class HomeViewController: UIViewController {
         homeTableView.frame = view.bounds
     }
     
-    private func getMostPopularTVs() {
-        APICaller.shared.getMostPopularTVs { items in
-            switch items {
-            case .success(let movies):
-                print(movies)
-            case .failure(let error):
-                print(error)
-            }
-        }
-    }
-    
     public override func viewDidLoad() {
         super.viewDidLoad()
         configureNavBar()
         setupLayout()
-        
-        getMostPopularTVs()
+
     }
     
     private func configureNavBar() {
@@ -97,32 +85,29 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         }
         switch indexPath.section {
         case Sections.TrendingMoview.rawValue:
-            APICaller.shared.getMostPopularMovies { result in
-                switch result {
-                case .success(let titles):
-                    cell.configure(titles: titles)
-                case .failure(let failure):
-                    print(failure.localizedDescription)
-                }
-            }
+            fetchData(rating: "MostPopularMovies", cell: cell)
         case Sections.TrendingTVs.rawValue:
-            APICaller.shared.getMostPopularTVs { result in
-                switch result {
-                case .success(let titles):
-                    cell.configure(titles: titles)
-                case .failure(let failure):
-                    print(failure.localizedDescription)
-                }
-            }
+            fetchData(rating: "MostPopularTVs", cell: cell)
+        case Sections.Top250Movies.rawValue:
+            fetchData(rating: "Top250Movies", cell: cell)
+        case Sections.Top250TVs.rawValue:
+            fetchData(rating: "Top250TVs", cell: cell)
         default:
             return UITableViewCell()
         }
         return cell
     }
     
-    //        func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-    //            return sectionTitles[section]
-    //        }
+    private func fetchData(rating: String, cell: HomeCollectionTableViewCell) {
+        APICaller.shared.getNeedRating(rating: rating) { result in
+            switch result {
+            case .success(let titles):
+                cell.configure(titles: titles)
+            case .failure(let failure):
+                print(failure.localizedDescription)
+            }
+        }
+    }
     
     public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let returnedView = UIView(frame: .zero)
@@ -148,9 +133,4 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         let offset = scrollView.contentOffset.y + defaultOffset
         navigationController?.navigationBar.transform = .init(translationX: 0, y: min(0, -offset))
     }
-    
-    //    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-    //        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 450))
-    //        return headerView
-    //    }
 }

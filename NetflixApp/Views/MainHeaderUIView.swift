@@ -70,7 +70,6 @@ public final class MainHeaderUIView: UIView {
         gradient.colors = [
             UIColor.clear.cgColor,
             UIColor.systemBackground.cgColor
-           // UIColor.black.cgColor
         ]
         gradient.frame = bounds
         layer.addSublayer(gradient)

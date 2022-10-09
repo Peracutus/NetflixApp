@@ -6,7 +6,6 @@
 //
 
 import Foundation
-//import PromiseKit
 
 struct Constants {
     static let API_KEY = "k_yx96o5uf"
@@ -14,35 +13,14 @@ struct Constants {
 }
 
 enum APIError: Error {
-case failedToGetData
+    case failedToGetData
 }
 
 public final class APICaller {
     static let shared = APICaller()
     
-//    func getMostPopularTVs() -> Promise<[MovieDetail]> {
-//            return Promise<[MovieDetail]> { seal in
-//                guard let url = URL(string: "\(Constants.baseURL)/en/API/MostPopularTVs/\(Constants.API_KEY)") else { return }
-//                URLSession.shared.dataTask(with: url) { data, _, error in
-//                    guard let data = data, let results = try? JSONDecoder().decode(Movies.self, from: data) else {
-//                        let genericError = NSError(
-//                          domain: "PromiseKitTutorial",
-//                          code: 0,
-//                          userInfo: [NSLocalizedDescriptionKey: "Unknown error"])
-//                        seal.reject(error ?? genericError)
-//                        return
-//                    }
-//                    guard let items = results.items else { return }
-//                    seal.fulfill(items)
-//                }.resume()
-//            }
-//        }
-
-
-    
-    func getMostPopularTVs(complition: @escaping (Result<[MovieDetail], Error>) -> Void) {
-
-        guard let url = URL(string: "\(Constants.baseURL)/en/API/MostPopularTVs/\(Constants.API_KEY)") else { return }
+    func getNeedRating(rating: String, complition: @escaping (Result<[MovieDetail], Error>) -> Void) {
+        guard let url = URL(string: "\(Constants.baseURL)/en/API/\(rating)/\(Constants.API_KEY)") else { return }
         let task = URLSession.shared.dataTask(with: url) { data, _, error in
             guard let data = data, error == nil  else {
                 return
@@ -58,15 +36,14 @@ public final class APICaller {
         task.resume()
     }
     
-    func getMostPopularMovies(complition: @escaping (Result<[MovieDetail], Error>) -> Void) {
-
-        guard let url = URL(string: "\(Constants.baseURL)/en/API/MostPopularMovies/\(Constants.API_KEY)") else { return }
+    func getNewMoviews(complition: @escaping (Result<[NewMovieDataDetail], Error>) -> Void) {
+        guard let url = URL(string: "\(Constants.baseURL)/en/API/ComingSoon/\(Constants.API_KEY)") else { return }
         let task = URLSession.shared.dataTask(with: url) { data, _, error in
             guard let data = data, error == nil  else {
                 return
             }
             do {
-                let results = try JSONDecoder().decode(Movies.self, from: data)
+                let results = try JSONDecoder().decode(UpcomingMovies.self, from: data)
                 guard let items = results.items else { return }
                 complition(.success(items))
             } catch {
@@ -76,3 +53,4 @@ public final class APICaller {
         task.resume()
     }
 }
+

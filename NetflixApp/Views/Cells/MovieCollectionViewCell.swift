@@ -7,6 +7,7 @@
 
 import UIKit
 import SDWebImage
+import EasyPeasy
 
 public final class MovieCollectionViewCell: UICollectionViewCell  {
     
@@ -19,20 +20,47 @@ public final class MovieCollectionViewCell: UICollectionViewCell  {
         
         return image
     }()
+    private let imdbIcon: UIImageView = {
+        let image = UIImageView()
+        image.contentMode = .scaleAspectFill
+        image.translatesAutoresizingMaskIntoConstraints = false
+        image.image = UIImage(named: "imdbIcon")?.withRenderingMode(.alwaysOriginal)
+        return image
+    }()
+    private let titleLabel: UILabel = {
+        let title = UILabel()
+        title.font = .systemFont(ofSize: 12, weight: .bold)
+        title.translatesAutoresizingMaskIntoConstraints = false
+        return title
+    }()
+    
+    private lazy var stackView: UIStackView = {
+        let stack = UIStackView()
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        stack.axis = .horizontal
+        stack.alignment = .center
+        stack.addArrangedSubview(imdbIcon)
+        stack.addArrangedSubview(titleLabel)
+        stack.backgroundColor = .yellow
+        stack.layer.cornerRadius = 5
+        stack.clipsToBounds = true
+        return stack
+    }()
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         contentView.addSubview(posterImage)
+        contentView.addSubview(stackView)
+        
+        posterImage.easy.layout(Edges())
+        stackView.easy.layout(Right(5), Bottom(5), Width(40), Height(20))
     }
     
-    public func configure(with model: String) {
-        guard let url = URL(string: model) else { return }
+    public func configure(with model: MovieDetail) {
+        titleLabel.text = model.imDbRating
+        guard let url = URL(string: model.image ?? "") else { return }
         posterImage.sd_setImage(with: url, completed: nil)
-    }
-    
-    public override func layoutSubviews() {
-        super.layoutSubviews()
-        posterImage.frame = contentView.bounds
     }
     
     @available(*, unavailable)

@@ -70,7 +70,7 @@ extension HomeCollectionTableViewCell: UICollectionViewDelegate, UICollectionVie
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MovieCollectionViewCell.id, for: indexPath) as? MovieCollectionViewCell else {
             return UICollectionViewCell()
         }
-        guard let model = titles[indexPath.row].image else { return UICollectionViewCell()}
+        let model = titles[indexPath.row] 
         cell.configure(with: model)
         return cell
     }
