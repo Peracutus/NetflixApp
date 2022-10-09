@@ -9,6 +9,11 @@ import UIKit
 //import SwiftUI
 import EasyPeasy
 
+enum Sections: Int {
+    case TrendingMoview = 0
+    case TrendingTVs = 1
+}
+
 public final class HomeViewController: UIViewController {
     
     private let sectionTitles: [String] = ["Trending Moviews","Popular", "Trending Tv", "Upcoming Movies", "Top Rated"]
@@ -32,7 +37,7 @@ public final class HomeViewController: UIViewController {
     }
     
     private func getMostPopularTVs() {
-        APICaller.shared.getTrendMovies { items in
+        APICaller.shared.getMostPopularTVs { items in
             switch items {
             case .success(let movies):
                 print(movies)
@@ -88,6 +93,28 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HomeCollectionTableViewCell.identifier, for: indexPath) as? HomeCollectionTableViewCell else {
+            return UITableViewCell()
+        }
+        switch indexPath.section {
+        case Sections.TrendingMoview.rawValue:
+            APICaller.shared.getMostPopularMovies { result in
+                switch result {
+                case .success(let titles):
+                    cell.configure(titles: titles)
+                case .failure(let failure):
+                    print(failure.localizedDescription)
+                }
+            }
+        case Sections.TrendingTVs.rawValue:
+            APICaller.shared.getMostPopularTVs { result in
+                switch result {
+                case .success(let titles):
+                    cell.configure(titles: titles)
+                case .failure(let failure):
+                    print(failure.localizedDescription)
+                }
+            }
+        default:
             return UITableViewCell()
         }
         return cell

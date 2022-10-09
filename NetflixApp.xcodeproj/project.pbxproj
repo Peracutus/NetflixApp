@@ -24,6 +24,10 @@
 		B5240DE828E727D20029EB96 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5240DE728E727D20029EB96 /* MainTabBarViewController.swift */; };
 		B525436128E9815C00BE353C /* APICaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = B525436028E9815C00BE353C /* APICaller.swift */; };
 		B525436428E986B600BE353C /* MovieModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B525436328E986B600BE353C /* MovieModel.swift */; };
+		B564841228F2C40A00B25C98 /* MovieCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B564841128F2C40A00B25C98 /* MovieCollectionViewCell.swift */; };
+		B564841528F2C62400B25C98 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = B564841428F2C62400B25C98 /* SDWebImage */; };
+		B564841728F2C62400B25C98 /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = B564841628F2C62400B25C98 /* SDWebImageMapKit */; };
+		B56A374E28EF6D25001840EF /* PromiseKit in Frameworks */ = {isa = PBXBuildFile; productRef = B56A374D28EF6D25001840EF /* PromiseKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +68,7 @@
 		B5240DE728E727D20029EB96 /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
 		B525436028E9815C00BE353C /* APICaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICaller.swift; sourceTree = "<group>"; };
 		B525436328E986B600BE353C /* MovieModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieModel.swift; sourceTree = "<group>"; };
+		B564841128F2C40A00B25C98 /* MovieCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,7 +76,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B564841528F2C62400B25C98 /* SDWebImage in Frameworks */,
 				B5240DDF28E727270029EB96 /* EasyPeasy in Frameworks */,
+				B564841728F2C62400B25C98 /* SDWebImageMapKit in Frameworks */,
+				B56A374E28EF6D25001840EF /* PromiseKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -186,6 +194,7 @@
 			isa = PBXGroup;
 			children = (
 				B5240DD628E724280029EB96 /* HomeCollectionTableViewCell.swift */,
+				B564841128F2C40A00B25C98 /* MovieCollectionViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -216,6 +225,9 @@
 			name = NetflixApp;
 			packageProductDependencies = (
 				B5240DDE28E727270029EB96 /* EasyPeasy */,
+				B56A374D28EF6D25001840EF /* PromiseKit */,
+				B564841428F2C62400B25C98 /* SDWebImage */,
+				B564841628F2C62400B25C98 /* SDWebImageMapKit */,
 			);
 			productName = NetflixApp;
 			productReference = B5240DA028E723D90029EB96 /* NetflixApp.app */;
@@ -291,6 +303,8 @@
 			mainGroup = B5240D9728E723D90029EB96;
 			packageReferences = (
 				B5240DDD28E727270029EB96 /* XCRemoteSwiftPackageReference "EasyPeasy" */,
+				B56A374C28EF6D25001840EF /* XCRemoteSwiftPackageReference "PromiseKit" */,
+				B564841328F2C62400B25C98 /* XCRemoteSwiftPackageReference "SDWebImage" */,
 			);
 			productRefGroup = B5240DA128E723D90029EB96 /* Products */;
 			projectDirPath = "";
@@ -337,6 +351,7 @@
 				B525436428E986B600BE353C /* MovieModel.swift in Sources */,
 				B5240DD728E724280029EB96 /* HomeCollectionTableViewCell.swift in Sources */,
 				B5240DD928E724380029EB96 /* MainHeaderUIView.swift in Sources */,
+				B564841228F2C40A00B25C98 /* MovieCollectionViewCell.swift in Sources */,
 				B5240DE428E7275A0029EB96 /* DownloadsViewController.swift in Sources */,
 				B525436128E9815C00BE353C /* APICaller.swift in Sources */,
 				B5240DE628E7276D0029EB96 /* SearchViewController.swift in Sources */,
@@ -694,6 +709,22 @@
 				kind = branch;
 			};
 		};
+		B564841328F2C62400B25C98 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+		B56A374C28EF6D25001840EF /* XCRemoteSwiftPackageReference "PromiseKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mxcl/PromiseKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -701,6 +732,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B5240DDD28E727270029EB96 /* XCRemoteSwiftPackageReference "EasyPeasy" */;
 			productName = EasyPeasy;
+		};
+		B564841428F2C62400B25C98 /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B564841328F2C62400B25C98 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
+		B564841628F2C62400B25C98 /* SDWebImageMapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B564841328F2C62400B25C98 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImageMapKit;
+		};
+		B56A374D28EF6D25001840EF /* PromiseKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B56A374C28EF6D25001840EF /* XCRemoteSwiftPackageReference "PromiseKit" */;
+			productName = PromiseKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

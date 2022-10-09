@@ -11,13 +11,15 @@ public final class HomeCollectionTableViewCell: UITableViewCell {
     
     static let identifier = "HomeCollectionCell"
     
+     private var titles = [MovieDetail]()
+    
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: 140, height: 200)
         layout.scrollDirection = .horizontal
         
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        cv.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        cv.register(MovieCollectionViewCell.self, forCellWithReuseIdentifier: MovieCollectionViewCell.id)
         return cv
     }()
     
@@ -30,6 +32,14 @@ public final class HomeCollectionTableViewCell: UITableViewCell {
         collectionView.dataSource = self
         
         setupLayout()
+    }
+    
+    public func configure(titles: [MovieDetail]) {
+        self.titles = titles
+        DispatchQueue.main.async { [weak self] in
+            self?.collectionView.reloadData()
+        }
+        
     }
     
     //MARK: - Layout
@@ -53,13 +63,15 @@ public final class HomeCollectionTableViewCell: UITableViewCell {
 extension HomeCollectionTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource {
     
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 99
+        return titles.count
     }
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
-        cell.backgroundColor = .black
-        cell.tintColor = .red
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MovieCollectionViewCell.id, for: indexPath) as? MovieCollectionViewCell else {
+            return UICollectionViewCell()
+        }
+        guard let model = titles[indexPath.row].image else { return UICollectionViewCell()}
+        cell.configure(with: model)
         return cell
     }
 }
