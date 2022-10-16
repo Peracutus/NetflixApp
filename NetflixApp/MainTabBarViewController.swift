@@ -6,7 +6,6 @@
 //
 
 import UIKit
-//import SwiftUI
 
 public final class MainTabBarViewController: UITabBarController {
 
@@ -22,7 +21,7 @@ public final class MainTabBarViewController: UITabBarController {
         let downloadsVC = createNavController(vc: DownloadsViewController(), itemTitle: "Downloads", itemImage: "magnifyingglass.circle.fill")
         let searchVC = createNavController(vc: SearchViewController(), itemTitle: "Search", itemImage: "capslock.fill")
         
-        setViewControllers([homeVC, upcomingVC, downloadsVC, searchVC], animated: true)
+        setViewControllers([ upcomingVC, homeVC, downloadsVC, searchVC], animated: true)
     }
     
     private func createNavController(vc: UIViewController, itemTitle: String, itemImage: String) -> UINavigationController {
@@ -35,24 +34,3 @@ public final class MainTabBarViewController: UITabBarController {
         return navController
     }
 }
-
-//MARK: - add canvas mode with using UIKit
-//struct MyProvider: PreviewProvider {
-//    static var previews: some View {
-//        Group {
-//            ContainerView().edgesIgnoringSafeArea(.all)
-//            ContainerView().edgesIgnoringSafeArea(.all)
-//        }
-//    }
-//
-//    struct ContainerView: UIViewControllerRepresentable {
-//
-//        func makeUIViewController(context: UIViewControllerRepresentableContext<MyProvider.ContainerView>) -> MainTabBarViewController {
-//            return MainTabBarViewController()
-//        }
-//
-//        func updateUIViewController(_ uiViewController: MyProvider.ContainerView.UIViewControllerType, context: UIViewControllerRepresentableContext<MyProvider.ContainerView>) {
-//
-//        }
-//    }
-//}

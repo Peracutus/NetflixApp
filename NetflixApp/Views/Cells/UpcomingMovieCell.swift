@@ -13,33 +13,45 @@ public final class UpcomingMovieCell: UITableViewCell  {
     
     static let id = "UpcomingMovieCell"
     
+    //MARK: - Properties
     private let titleLabel: UILabel = {
         let image = UILabel()
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
     private let playButton: UIButton = {
-        let image = UIButton()
-        image.translatesAutoresizingMaskIntoConstraints = false
-        return image
+        let button = UIButton()
+        let image = UIImage(systemName: "play.circle", withConfiguration: UIImage.SymbolConfiguration(pointSize: 40))
+        button.setImage(image, for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.tintColor = .black
+        return button
     }()
     private let posterImage: UIImageView = {
         let image = UIImageView()
-        image.contentMode = .scaleAspectFill
+        image.contentMode = .scaleAspectFit
+        image.clipsToBounds = true
         image.translatesAutoresizingMaskIntoConstraints = false
-        
         return image
+    }()
+    private lazy var stackH: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [posterImage, titleLabel, playButton])
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        stack.axis = .horizontal
+        stack.alignment = .center
+        stack.spacing = 20
+        return stack
     }()
     
     public override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         selectionStyle = .none
-        
-        [titleLabel, playButton, posterImage].forEach { contentView.addSubview($0) }
-        posterImage.easy.layout(Left(), Top(10), Bottom(15), Width(100))
-        titleLabel.easy.layout(CenterY(), Left(20).to(posterImage, .right))
+        contentView.addSubview(stackH)
+        stackH.easy.layout(Edges(10))
+        posterImage.easy.layout(Size(100))
     }
     
+    //MARK: - Configure
     func configure(with model: NewMovieDataDetail) {
         titleLabel.text = model.title
         guard let image = model.image else { return }

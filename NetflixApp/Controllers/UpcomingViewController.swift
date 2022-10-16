@@ -37,7 +37,6 @@ public final class UpcomingViewController: UIViewController {
             switch result {
             case .success(let titles):
                 self.titles = titles
-                print(titles)
                 DispatchQueue.main.async {
                     self.upcomingTable.reloadData()
                 }

@@ -29,6 +29,9 @@ public final class APICaller {
                 let results = try JSONDecoder().decode(Movies.self, from: data)
                 guard let items = results.items else { return }
                 complition(.success(items))
+                if results.errorMessage != nil {
+                    print(results.errorMessage ?? "")
+                }
             } catch {
                 complition(.failure(APIError.failedToGetData))
             }
