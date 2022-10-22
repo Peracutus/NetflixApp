@@ -52,7 +52,14 @@ public final class UpcomingMovieCell: UITableViewCell  {
     }
     
     //MARK: - Configure
-    func configure(with model: NewMovieDataDetail) {
+    func configure(with model: NewMovieDataDetail ) {
+        titleLabel.text = model.title
+        guard let image = model.image else { return }
+        guard let url = URL(string: image) else { return }
+        posterImage.sd_setImage(with: url, completed: nil)
+    }
+    
+    func configure(with model:  SearchResult) {
         titleLabel.text = model.title
         guard let image = model.image else { return }
         guard let url = URL(string: image) else { return }

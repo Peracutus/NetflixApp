@@ -21,7 +21,7 @@ public final class MainTabBarViewController: UITabBarController {
         let downloadsVC = createNavController(vc: DownloadsViewController(), itemTitle: "Downloads", itemImage: "magnifyingglass.circle.fill")
         let searchVC = createNavController(vc: SearchViewController(), itemTitle: "Search", itemImage: "capslock.fill")
         
-        setViewControllers([ upcomingVC, homeVC, downloadsVC, searchVC], animated: true)
+        setViewControllers([searchVC, upcomingVC, homeVC, downloadsVC], animated: true)
     }
     
     private func createNavController(vc: UIViewController, itemTitle: String, itemImage: String) -> UINavigationController {

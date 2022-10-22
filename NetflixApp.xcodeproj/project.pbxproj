@@ -30,6 +30,7 @@
 		B56A374E28EF6D25001840EF /* PromiseKit in Frameworks */ = {isa = PBXBuildFile; productRef = B56A374D28EF6D25001840EF /* PromiseKit */; };
 		B56FAA8328F3268100A3396A /* UpcomingMovies.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56FAA8228F3268100A3396A /* UpcomingMovies.swift */; };
 		B56FAA8528F32ED300A3396A /* UpcomingMovieCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56FAA8428F32ED300A3396A /* UpcomingMovieCell.swift */; };
+		B59B418728FC590B00FDCB44 /* SearchData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59B418628FC590B00FDCB44 /* SearchData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +74,7 @@
 		B564841128F2C40A00B25C98 /* MovieCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCollectionViewCell.swift; sourceTree = "<group>"; };
 		B56FAA8228F3268100A3396A /* UpcomingMovies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingMovies.swift; sourceTree = "<group>"; };
 		B56FAA8428F32ED300A3396A /* UpcomingMovieCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingMovieCell.swift; sourceTree = "<group>"; };
+		B59B418628FC590B00FDCB44 /* SearchData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -210,6 +212,7 @@
 			children = (
 				B525436328E986B600BE353C /* MovieModel.swift */,
 				B56FAA8228F3268100A3396A /* UpcomingMovies.swift */,
+				B59B418628FC590B00FDCB44 /* SearchData.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -375,6 +378,7 @@
 				B5240DA428E723D90029EB96 /* AppDelegate.swift in Sources */,
 				B5240DA628E723D90029EB96 /* SceneDelegate.swift in Sources */,
 				B5240DE128E727410029EB96 /* UpcomingViewController.swift in Sources */,
+				B59B418728FC590B00FDCB44 /* SearchData.swift in Sources */,
 				B5240DDC28E724540029EB96 /* HomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
