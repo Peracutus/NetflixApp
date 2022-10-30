@@ -7,11 +7,15 @@
 
 import UIKit
 
+protocol HomeCollectionTableViewCellDelegate: AnyObject {
+    func didTappedCell(_ cell: HomeCollectionTableViewCell, vm: TitlePreviewVM)
+}
+
 public final class HomeCollectionTableViewCell: UITableViewCell {
     
     static let identifier = "HomeCollectionCell"
-    
-     private var titles = [MovieDetail]()
+    private var titles = [MovieDetail]()
+    weak var delegate: HomeCollectionTableViewCellDelegate?
     
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -73,5 +77,23 @@ extension HomeCollectionTableViewCell: UICollectionViewDelegate, UICollectionVie
         let model = titles[indexPath.row] 
         cell.configure(with: model)
         return cell
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
+        let title = titles[indexPath.row]
+        guard let titleName = title.title ?? title.fullTitle else { return }
+        
+        APICaller.shared.getMovie(from: titleName + " trailer", complition: { [weak self] result in
+            switch result {
+            case .success(let video):
+                guard let self = self else { return}
+                self.delegate?.didTappedCell(self, vm: TitlePreviewVM(title: titleName,
+                                                                 youtubeVideo: video,
+                                                                 titleOvierview: title.crew ?? ""))
+            case .failure(let failure):
+                print(failure.localizedDescription)
+            }
+        })
     }
 }

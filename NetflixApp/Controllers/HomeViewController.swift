@@ -40,7 +40,6 @@ public final class HomeViewController: UIViewController {
         super.viewDidLoad()
         configureNavBar()
         setupLayout()
-
     }
     
     private func configureNavBar() {
@@ -83,6 +82,8 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: HomeCollectionTableViewCell.identifier, for: indexPath) as? HomeCollectionTableViewCell else {
             return UITableViewCell()
         }
+        
+        cell.delegate = self
         switch indexPath.section {
         case Sections.TrendingMoview.rawValue:
             fetchData(rating: "MostPopularMovies", cell: cell)
@@ -132,5 +133,15 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         let defaultOffset = view.safeAreaInsets.top
         let offset = scrollView.contentOffset.y + defaultOffset
         navigationController?.navigationBar.transform = .init(translationX: 0, y: min(0, -offset))
+    }
+}
+
+extension HomeViewController: HomeCollectionTableViewCellDelegate {
+    func didTappedCell(_ cell: HomeCollectionTableViewCell, vm: TitlePreviewVM) {
+        DispatchQueue.main.async { [weak self] in
+            let vc = PreviewViewController()
+            vc.configure(with: vm)
+            self?.navigationController?.pushViewController(vc, animated: true )
+        }
     }
 }
